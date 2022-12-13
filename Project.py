@@ -1,3 +1,5 @@
+#Import necessary libraries 
+
 import cv2
 import dlib
 from scipy.spatial import distance as dist
@@ -11,6 +13,7 @@ frequency = 2000
 duration = 1000
 
 
+#Create an audio based on the text
 
 start = "Detection test start"
 yawning = "Yawning detected"
@@ -30,7 +33,7 @@ playsound('C:\\Users\\사용자\\OneDrive\\바탕 화면\\Testing\\start.mp3')
 
 
 
-
+#define Eye Aspect Ratio and Mouth Aspect Ratio
 def calculate_EAR(eye):
     A = dist.euclidean(eye[1], eye[5])
     B = dist.euclidean(eye[2], eye[4])
@@ -38,7 +41,7 @@ def calculate_EAR(eye):
     ear_aspect_ratio = (A+B)/(2.0*C)
     return ear_aspect_ratio
 
-def cal_yawn(shape): 
+def calculate_MAR(shape): 
     top_lip = shape[50:53]
     top_lip = np.concatenate((top_lip, shape[61:64]))
   
@@ -75,7 +78,7 @@ while True:
         leftEye = []
         rightEye = []
 
-        lip_dist = cal_yawn(shape)
+        lip_dist = calculate_MAR(shape)
 
         for n in range(36,42):
             x = face_landmarks.part(n).x
